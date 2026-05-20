@@ -27,7 +27,7 @@ class Libro:                        # es el molde para crear objetos
         match_titulo = re.search(r'Title:\s+(.+\n.+)', texto)  
         str_titulo = match_titulo.group(1)
 
-        if match_titulo:
+        if match_titulo:  # :)
             print("Título:", str_titulo)    
 
         match_autor = re.search(r'Author:\s+(.+)', texto)        
