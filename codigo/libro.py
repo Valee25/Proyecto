@@ -6,8 +6,8 @@ class Libro:                        # es el molde para crear objetos
     def __init__(self, enlace):             # esto se ejecuta automáticamente cada vez que se llama Libro()
 
         self.enlace = enlace           # guarda el link de internet de donde vino el libro, empieza vacío
+        self.estado = "Disponible"
         self.crear_libro()
-
 
 
     # Crear método libro
@@ -25,34 +25,39 @@ class Libro:                        # es el molde para crear objetos
         # Patrones de regex para metadatos básicos
 
         match_titulo = re.search(r'Title:\s+(.+\n.+)', texto)  
-        str_titulo = match_titulo.group(1)
 
-        if match_titulo:  # :)
-            print("Título:", str_titulo)    
+        if match_titulo:  
+            str_titulo = match_titulo.group(1)
+            print("Título:", str_titulo) 
+            self.titulo = str_titulo   
 
-        match_autor = re.search(r'Author:\s+(.+)', texto)        
-        str_autor = match_autor.group(1)                        
+        match_autor = re.search(r'Author:\s+(.+)', texto)                            
 
         if match_autor:
+            str_autor = match_autor.group(1)    
             print("Autor:", str_autor) 
+            self.autor = str_autor
 
         match_idioma = re.search(r'Language:\s+(.+)', texto)
-        str_idioma = match_idioma.group(1)
 
         if match_idioma:
+            str_idioma = match_idioma.group(1)
             print("Idioma:", str_idioma)
+            self.idioma = str_idioma
 
-        match_fecha = re.search(r'Release date:\s+(.+)', texto)  
-        str_fecha = match_fecha.group(1)     
+        match_fecha = re.search(r'Release date:\s+(.+)', texto)      
 
         if match_fecha:
+            str_fecha = match_fecha.group(1) 
             print("Publicación:", str_fecha)
+            self.fecha = str_fecha
 
         match_enlace = re.search(r'Other information and formats:\s+(.+)', texto)
-        str_enlace = match_enlace.group(1)
 
         if match_enlace:
+            str_enlace = match_enlace.group(1)
             print("Enlace:", str_enlace)
+            self.enlace = str_enlace
 
 
         # Verifica si el link es de un libro o no, si sí entonces aparece disponible 
@@ -83,15 +88,6 @@ class Libro:                        # es el molde para crear objetos
             else: 
                 print("Opción inválida, intenta de nuevo.")
                 break
-    
-
-        self.titulo = ""            # guarda el nombre del libro, empieza vacío porque aún no sabemos cuál es
-        self.autor = ""             # guarda quién escribió el libro, empieza vacío
-        self.idioma = ""            # guarda en qué idioma está el libro, empieza vacío
-        self.fecha = ""             # guarda cuándo se publicó en Gutenberg, empieza vacío
-        self.ruta = ""              # guarda en qué carpeta del pc está guardado el .txt, empieza vacío
-        self.estado = "Disponible" 
-
 
 
 L1 = Libro('https://www.gutenberg.org/cache/epub/78625/pg78625.txt') 
