@@ -9,7 +9,7 @@ class Usuario:
           
 class Prestamo:
 
-    def __init__(self, usuario, libro):
+    def __init__(self, usuario, libro): #agregar biblio (mover de dispo a prestado y vicev)
 
         self.usuario = usuario
         self.libro = libro

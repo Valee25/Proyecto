@@ -3,6 +3,7 @@ import os     # Para trabajar con carpetas y archivos del sistema
 from libro import Libro
 
 class Biblioteca:
+
     def __init__(self):
         self.libros = []
 
@@ -26,8 +27,19 @@ class Biblioteca:
                 resultados.append(libro)
         return resultados
     
-
-    #### REVISIÓN
+    def libros_disponibles(self):
+        resultados = []
+        for libro in self.libros:
+            if libro.estado == "Disponible":
+                resultados.append(libro)
+        return resultados
+    
+    def libros_prestados(self):
+        resultados = []
+        for libro in self.libros:
+            if libro.estado == "Prestado":
+                 resultados.append(libro)
+        return resultados
 
     def guardar(self, ruta="datos/libros.json"):
         # Crea la carpeta "datos" si no existe en el proyecto

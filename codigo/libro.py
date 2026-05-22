@@ -1,5 +1,6 @@
 import re                           # importa lo que permite buscar patrones en texto (regex)
 import requests
+import os
 
 class Libro:                        # es el molde para crear objetos
 
@@ -27,9 +28,9 @@ class Libro:                        # es el molde para crear objetos
         match_titulo = re.search(r'Title:\s+(.+\n.+)', texto)  
 
         if match_titulo:  
-            str_titulo = match_titulo.group(1)
-            print("Título:", str_titulo) 
-            self.titulo = str_titulo   
+            str_titulo = match_titulo.group(1)     # normalizarlo sin el salto de linea o tabs:c
+            self.titulo = " ".join(str_titulo.split())
+            print("Título:", self.titulo)
 
         match_autor = re.search(r'Author:\s+(.+)', texto)                            
 
@@ -74,12 +75,14 @@ class Libro:                        # es el molde para crear objetos
         while True: 
             print("¿Quieres descargar el libro? Escribe 1 continuar, 0 para salir.")           
             respuesta = int(input())
+            
             if respuesta == 1:
-                print("La descarga iniciará inmediatamente!")
-                # Guarda el req
-                with open("salida.txt", "w", encoding="utf-8") as f:
+                os.makedirs("libros", exist_ok=True)
+                nombre_libro = "libros/" + self.titulo.replace(" ", "_") + ".txt"
+                print(f"Descargando: {nombre_libro}")
+                with open(nombre_libro, "w", encoding="utf-8") as f:
                     f.write(req.text)
-                    break
+                break
 
             elif respuesta == 0:
                 print("De acuerdo!")
