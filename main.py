@@ -1,0 +1,122 @@
+from customtkinter import *
+from agregarLibro import *
+
+class App(CTk):
+    def __init__(self):
+        super().__init__()
+
+        self.toplevel_window = None
+
+        self.title("BIBLIOTECA")
+        self.configure(fg_color= "#d9dbff")
+
+        self.screenwidth = self.winfo_screenwidth()
+        self.screenheight = self.winfo_screenheight()
+        self.geometry(f"{self.screenwidth}x{self.screenheight}+0+0")
+
+        self.grid_columnconfigure(0, weight=2)
+        self.grid_columnconfigure(1, weight=9)
+        self.grid_columnconfigure(2, weight=2)
+        
+
+        self.grid_rowconfigure(0, weight=2)
+        self.grid_rowconfigure(1, weight=6)
+        self.grid_rowconfigure(2, weight=2)
+        self.grid_rowconfigure(3, weight=10)
+        self.grid_rowconfigure(4, weight=4)
+
+        #cositas
+        Titulo= "BIBLIOTECA"
+        subtitulo = "Explora el inventario de la biblioteca"
+        self.label = CTkLabel(self, 
+                              text= Titulo,
+                              text_color= "black",
+                              font= ("Times New Roman", 30, "bold"),
+                              #anchor= nada
+                              fg_color="transparent",)
+        self.label.grid(row=0, column=0, padx=100, pady=0, sticky= "w")
+
+        self.subtitulo = CTkLabel(self, 
+                              text= subtitulo,
+                              text_color= "#454ccd",
+                              font= ("Times New Roman", 15, "bold"),
+                              #anchor= nada
+                              fg_color="transparent",)
+        self.subtitulo.grid(row=0, column=0, padx=100, pady=(50,0), sticky= "w")
+
+
+        self.button2 = CTkButton(self,
+                                text="agregar libro",
+                                fg_color= "#1a1c43",
+                                height= 40,
+                                corner_radius= 5,
+                                command=self.button2_callbck)
+        self.button2.grid(row=0, column=2, padx=(10,50), pady=(10,5), sticky= "w")
+
+        self.entry = CTkEntry(self,
+                            placeholder_text="Buscar libro",
+                            width=700,
+                            fg_color= "#ffffff",
+                            border_color= "#1a1c43",
+                            height= 30,
+                            )
+        self.entry.grid(row=0, column=0, padx=100, pady=(120,0), sticky= "w")
+
+        self.button_buscar = CTkButton(self,
+                                       text="Buscar",
+                                       fg_color= "#1a1c43",
+                                       height= 40,
+                                       corner_radius= 5,
+                                       command=self.button_callbck)
+        self.button_buscar.grid(row=0, column=1, padx=20, pady=(120,0), sticky= "w")
+
+
+        self.linea1 = CTkFrame(self,
+                               height= 2,
+                               fg_color= "#696dc2")
+        self.linea1.grid(row=0, columnspan= 2, column=0, padx=(100,0), pady=(210,0), sticky= "we")
+        self.tabla()
+
+    
+    def tabla(self):
+        self.book_table = CTkFrame(self,
+                                   fg_color= "#bec1f6",
+                                   border_color= "#696dc2",
+                                   border_width= 1,
+                                   corner_radius= 5)
+        self.book_table.grid(row=1, column=0, columnspan= 2, padx=(100,0), pady=(0,0), sticky= "nswe")
+
+        self.book_table.grid_columnconfigure(0, weight=4)
+        self.book_table.grid_columnconfigure(1, weight=3)
+        self.book_table.grid_columnconfigure(2, weight=2)        
+        self.book_table.grid_columnconfigure(3, weight=2)  
+
+        cabecera=["Título", "Autor", "Estado", "Más"]
+        for x in range(4):
+            self.descripcion = CTkLabel(self.book_table, 
+                                text= cabecera[x],
+                                text_color= "black",
+                                font= ("Times New Roman", 20, "bold"),
+                                #anchor= nada
+                                fg_color="transparent",)
+            self.descripcion.grid(row=0, column=x, padx=10, pady=5, sticky= "w")
+
+        # supongamos que va a ser una lista
+        
+
+
+        
+    
+
+    def button_callbck(self):
+        print("button clicked")
+
+    def button2_callbck(self):
+        if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
+            self.toplevel_window = agregarLibro(self)
+
+        else:
+            self.toplevel_window.focus()
+
+app = App()
+app.mainloop()
