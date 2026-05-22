@@ -1,6 +1,7 @@
 import re                           # importa lo que permite buscar patrones en texto (regex)
 import requests
 import os
+from Libro_Boceto import Libro as LibroFinal
 
 class Libro:                        # es el molde para crear objetos
 
@@ -69,9 +70,9 @@ class Libro:                        # es el molde para crear objetos
         else:
             print("El libro está disponible!")
         
+        nombre_libro = None  # Si el usuario no descarga, la ruta queda vacía
 
         # Preguntar si el usuario quiere descargar el libro
-
         while True: 
             print("¿Quieres descargar el libro? Escribe 1 continuar, 0 para salir.")           
             respuesta = int(input())
@@ -92,6 +93,19 @@ class Libro:                        # es el molde para crear objetos
                 print("Opción inválida, intenta de nuevo.")
                 break
 
-
-L1 = Libro('https://www.gutenberg.org/cache/epub/78625/pg78625.txt') 
-print(L1)
+        
+        libro_final = LibroFinal(
+            titulo=self.titulo,
+            autor=self.autor,
+            idioma=self.idioma,
+            release_date=self.fecha,
+            enlace=self.enlace,
+            ruta_local=nombre_libro
+        )
+        return libro_final
+    
+    
+L1 = Libro('https://www.gutenberg.org/cache/epub/78625/pg78625.txt')
+libro = L1.crear_libro()  # ← esto retorna el LibroFinal
+print(libro.titulo)
+print(libro.estado)
