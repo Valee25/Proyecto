@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta
+from biblio import Biblioteca
+from usuario import Usuario
 
 class Usuario:
 
