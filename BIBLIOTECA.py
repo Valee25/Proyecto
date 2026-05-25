@@ -1,10 +1,13 @@
 from customtkinter import *
 from agregarLibro import *
+import info_libro
+from libro_boceto import Libro
 
 class App(CTk):
     def __init__(self):
         super().__init__()
 
+        self.libros = []
         self.toplevel_window = None
 
         self.title("BIBLIOTECA")
@@ -79,6 +82,9 @@ class App(CTk):
 
     
     def tabla(self):
+        if hasattr(self, 'book_table'):
+            self.book_table.destroy()
+
         self.book_table = CTkFrame(self,
                                    fg_color= "#bec1f6",
                                    border_color= "#696dc2",
@@ -102,7 +108,45 @@ class App(CTk):
             self.descripcion.grid(row=0, column=x, padx=10, pady=5, sticky= "w")
 
         # supongamos que va a ser una lista
+        def poblar_tabla(self, libros):
         
+            for i, libro in enumerate(libros):
+                fila = i + 1 
+
+            self.titulo_libro = CTkLabel(self.book_table,
+                                text=libro.titulo,
+                                text_color="black",
+                                font=("Calibri Light", 15),
+                                #anchor= nada
+                                fg_color="transparent")
+            self.titulo_libro.grid(row=fila, column=0, padx=10, pady=5, sticky="w")
+            
+            self.autor_libro = CTkLabel(self.book_table,
+                                text=libro.autor,
+                                text_color="black",
+                                font=("Calibri Light", 15),
+                                #anchor= nada
+                                fg_color="transparent")
+            self.autor_libro.grid(row=fila, column=1, padx=10, pady=5, sticky="w")
+            
+            self.estado_libro = CTkLabel(self.book_table,
+                                text=libro.estado,
+                                text_color="black",
+                                font=("Calibri Light", 15),
+                                #anchor= nada
+                                fg_color="transparent" if libro.estado == "Disponible" else "#00028a")
+            self.estado_libro.grid(row=fila, column=2, padx=10, pady=5, sticky="w")
+
+            texto_boton = "Más información"
+            self.mas_info = CTkButton(self.book_table,
+                                text= texto_boton,
+                                text_color="black",
+                                font=("Calibri Light", 15),
+                                #anchor= nada
+                                fg_color="transparent",
+                                command= self.mas_info_callback)
+            self.mas_info.grid(row=fila, column=3, padx=10, pady=5, sticky="w")
+
 
 
         
@@ -110,17 +154,25 @@ class App(CTk):
 
     def button_callbck(self):
         print("button clicked")
-
-    def button2_callbck(self):
+        
+    def mas_info_callback(self):
         if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
-            self.toplevel_window = agregarLibro(self)
-            self.toplevel_window.transient(self)
-            self.toplevel_window.lift()
-            self.toplevel_window.focus_force()
-
+            self.toplevel_window = info_libro(self)
+                
+            self.toplevel_window.grab_set() 
+            
         else:
             self.toplevel_window.lift()
             self.toplevel_window.focus_force()
 
+    def button2_callbck(self):
+        if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
+            self.toplevel_window = agregarLibro(self)   
+               
+            self.toplevel_window.grab_set() 
+            
+        else:
+            self.toplevel_window.lift()
+            self.toplevel_window.focus_force()
 app = App()
 app.mainloop()
