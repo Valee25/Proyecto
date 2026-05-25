@@ -8,6 +8,7 @@ class agregarLibro(CTkToplevel):
 
         
         self.geometry("1000x700")
+        self.attributes("-topmost", True)
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=8)
@@ -36,7 +37,7 @@ class agregarLibro(CTkToplevel):
                                     corner_radius= 5,
                                     command=self.button_callbck)
         self.devolver.grid(row=0, column=0, padx=30, pady=0, sticky= "w")
-
+       
     def tabla1(self):
         self.cuadro1 = CTkFrame(self,
                                    fg_color= "#bec1f6",
@@ -67,11 +68,34 @@ class agregarLibro(CTkToplevel):
                                         text_color="#454ccd",
                                         font=("Calibri Light", 15, "bold"),
                                         fg_color="transparent")
-        self.label_subtitulo.grid(row=0, column=0, padx=30, pady=(80, 0), sticky="w")
+        self.label_subtitulo.grid(row=0, column=0, padx=30, pady=(80,0), sticky="w")
 
+        self.entry_enlace = CTkEntry(self.cuadro1,
+                                     placeholder_text="https://...",
+                                     width=500,
+                                     height=35,
+                                     fg_color="#dbddff",
+                                     border_color="#1a1c43")
+        self.entry_enlace.grid(row=1, column=0, padx=30, pady=0, sticky="nw")
 
+        tirulo_boton = "Agregar libro"
+        self.boton_agregar = CTkButton(self.cuadro1,
+                                     text= tirulo_boton,
+                                     fg_color="#1a1c43",
+                                     height=40,
+                                     corner_radius=5,
+                                     command=self.agregar_libro)
+        self.boton_agregar.grid(row=1, column=0, padx=30, pady=(60,0), sticky="nw")
 
+     
+        self.lift()          
+        self.focus_force()
 
+    def agregar_libro(self):
+        enlace = self.entry_enlace.get()
+        print(f"Enlace guardado: {enlace}")
 
     def button_callbck(self):
-        print("button clicked")
+        self.destroy()  # Cierra la ventana actual
+
+  
