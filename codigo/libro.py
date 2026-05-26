@@ -71,28 +71,6 @@ class Libro:                        # es el molde para crear objetos
             print("El libro está disponible!")
         
         nombre_libro = None  # Si el usuario no descarga, la ruta queda vacía
-
-        # Preguntar si el usuario quiere descargar el libro
-        while True: 
-            print("¿Quieres descargar el libro? Escribe 1 continuar, 0 para salir.")           
-            respuesta = int(input())
-            
-            if respuesta == 1:
-                os.makedirs("libros", exist_ok=True)
-                nombre_libro = "libros/" + self.titulo.replace(" ", "_") + ".txt"
-                print(f"Descargando: {nombre_libro}")
-                with open(nombre_libro, "w", encoding="utf-8") as f:
-                    f.write(req.text)
-                break
-
-            elif respuesta == 0:
-                print("De acuerdo!")
-                break
-
-            else: 
-                print("Opción inválida, intenta de nuevo.")
-                break
-
         
         libro_final = LibroFinal(
             titulo=self.titulo,
@@ -103,9 +81,3 @@ class Libro:                        # es el molde para crear objetos
             ruta_local=nombre_libro
         )
         return libro_final
-    
-    
-L1 = Libro('https://www.gutenberg.org/cache/epub/78625/pg78625.txt')
-libro = L1.crear_libro()  # ← esto retorna el LibroFinal
-print(libro.titulo)
-print(libro.estado)

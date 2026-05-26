@@ -1,7 +1,6 @@
 from customtkinter import *
-from agregarLibro import *
-import info_libro
-from libro_boceto import Libro
+from añadirLibro import *
+from Libro_Boceto import Libro
 
 class App(CTk):
     def __init__(self):
