@@ -101,7 +101,7 @@ class Libro:
             raise ValueError(f"ERROR: {nuevo_estado}")     # Raise para lanzar excepciones
         self.estado = nuevo_estado     # En caso de estarlo, se le atrivuye su estado
         
-    def to_dict(self):     # Convierte el libro a un diccionario de Python
+    def conver_dicc(self):     # Convierte el libro a un diccionario de Python
         return {
             "Título": self.titulo,
             "Autor": self.autor,
@@ -110,18 +110,3 @@ class Libro:
             "Ruta_local": self.ruta_local,
             "Estado": self.estado,
             }
-    
-    @classmethod     # Usamos esto para crear un diccionario con los atributos, en este caso Libro
-    def from_dict(cls, datos):
-        return cls(
-           titulo=datos.get("Título", ""),
-           autor=datos.get("Autor", ""),
-           idioma=datos.get("Idioma", ""),
-           release_date=datos.get("Release Date", ""),
-           enlace=datos.get("Enlace", ""),
-           ruta_local=datos.get("Ruta Local", ""),
-           estado=datos.get("Estado", "Disponible"),
-            )
-    
-    def __repr__(self):
-        return (f"Libro {self.titulo} de {self.autor}     Estado: {self.estado}")
