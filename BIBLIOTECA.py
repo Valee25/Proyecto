@@ -108,47 +108,44 @@ class App(CTk):
             self.descripcion.grid(row=0, column=x, padx=10, pady=5, sticky= "w")
 
         # supongamos que va a ser una lista
-        def poblar_tabla(self, libros):
+    def poblar_tabla(self, libros):
+    
+        for i, libro in enumerate(libros):
+            fila = i + 1 
+
+        self.titulo_libro = CTkLabel(self.book_table,
+                            text=libro.titulo,
+                            text_color="black",
+                            font=("Calibri Light", 15),
+                            #anchor= nada
+                            fg_color="transparent")
+        self.titulo_libro.grid(row=fila, column=0, padx=10, pady=5, sticky="w")
         
-            for i, libro in enumerate(libros):
-                fila = i + 1 
+        self.autor_libro = CTkLabel(self.book_table,
+                            text=libro.autor,
+                            text_color="black",
+                            font=("Calibri Light", 15),
+                            #anchor= nada
+                            fg_color="transparent")
+        self.autor_libro.grid(row=fila, column=1, padx=10, pady=5, sticky="w")
+        
+        self.estado_libro = CTkLabel(self.book_table,
+                            text=libro.estado,
+                            text_color="black",
+                            font=("Calibri Light", 15),
+                            #anchor= nada
+                            fg_color="transparent" if libro.estado == "Disponible" else "#00028a")
+        self.estado_libro.grid(row=fila, column=2, padx=10, pady=5, sticky="w")
 
-            self.titulo_libro = CTkLabel(self.book_table,
-                                text=libro.titulo,
-                                text_color="black",
-                                font=("Calibri Light", 15),
-                                #anchor= nada
-                                fg_color="transparent")
-            self.titulo_libro.grid(row=fila, column=0, padx=10, pady=5, sticky="w")
-            
-            self.autor_libro = CTkLabel(self.book_table,
-                                text=libro.autor,
-                                text_color="black",
-                                font=("Calibri Light", 15),
-                                #anchor= nada
-                                fg_color="transparent")
-            self.autor_libro.grid(row=fila, column=1, padx=10, pady=5, sticky="w")
-            
-            self.estado_libro = CTkLabel(self.book_table,
-                                text=libro.estado,
-                                text_color="black",
-                                font=("Calibri Light", 15),
-                                #anchor= nada
-                                fg_color="transparent" if libro.estado == "Disponible" else "#00028a")
-            self.estado_libro.grid(row=fila, column=2, padx=10, pady=5, sticky="w")
-
-            texto_boton = "Más información"
-            self.mas_info = CTkButton(self.book_table,
-                                text= texto_boton,
-                                text_color="black",
-                                font=("Calibri Light", 15),
-                                #anchor= nada
-                                fg_color="transparent",
-                                command= self.mas_info_callback)
-            self.mas_info.grid(row=fila, column=3, padx=10, pady=5, sticky="w")
-
-
-
+        texto_boton = "Más información"
+        self.mas_info = CTkButton(self.book_table,
+                            text= texto_boton,
+                            text_color="black",
+                            font=("Calibri Light", 15),
+                            #anchor= nada
+                            fg_color="transparent",
+                            command= self.mas_info_callback)
+        self.mas_info.grid(row=fila, column=3, padx=10, pady=5, sticky="w")
         
     
 

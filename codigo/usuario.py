@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from biblio import Biblioteca
-from usuario import Usuario
+from libro import Libro
 
 class Usuario:
 
@@ -12,12 +12,15 @@ class Usuario:
 class Prestamo:
 
     def __init__(self, usuario, libro): #agregar biblio (mover de dispo a prestado y vicev)
-
+        
+        Biblioteca.buscar_por_titulo(libro)
+        Biblioteca.buscar_por_titulo(libro)
         self.usuario = usuario
         self.libro = libro
         self.libro.estado = "Prestado"
         self.fecha_prestamo = datetime.now()                         # Fecha de hoy automática
         self.fecha_devolucion = datetime.now() + timedelta(days=15)  # 15 días después
+    
 
     def devolucion(self, clave):
         if clave == "123p":
@@ -26,8 +29,6 @@ class Prestamo:
         else:
             print("No funcionó")
 
-
-from libro import Libro
 
 L1 = Libro('https://www.gutenberg.org/cache/epub/78625/pg78625.txt')
 Us = Usuario("Alejandro", "alejandro@gmail.com", "123")
